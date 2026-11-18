@@ -280,10 +280,11 @@
     <h2>Will you join us?</h2>
     <div class="rsvp">
       <div class="chips"><div class="chip sel" data-v="yes">Joyfully accept</div><div class="chip" data-v="no">Regretfully decline</div></div>
-      <input id="guestName" placeholder="Your full name" aria-label="Your name">
-      <input id="guestCount" type="number" min="1" max="10" value="1" aria-label="Number of guests">
+      <input id="guestName" placeholder="Your name" aria-label="Your name">
+      <input id="guestCount" type="number" min="1" max="10" placeholder="How many persons are coming?" aria-label="How many persons are coming?">
       <div class="actions"><button class="btn gold" id="rsvpBtn">Send RSVP</button></div>
       <div id="rsvpMsg"></div>
+      <div class="tiny">You'll be taken to WhatsApp — please press SEND there to confirm.</div>
     </div>
   </section>
 
@@ -329,19 +330,24 @@
   }
   tick();setInterval(tick,1000);
 
-  /* RSVP chips + local save */
+  /* RSVP chips + local save, then open WhatsApp with a ready message */
+  const RSVP_PHONE='917877593451';
   let going=true;
   document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
     document.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');going=c.dataset.v==='yes';
   }));
   document.getElementById('rsvpBtn').addEventListener('click',()=>{
     const name=document.getElementById('guestName').value.trim();
-    const count=document.getElementById('guestCount').value;
+    const count=document.getElementById('guestCount').value||'1';
     const msg=document.getElementById('rsvpMsg');
     if(!name){msg.textContent='Please enter your name.';return}
     const list=JSON.parse(localStorage.getItem('gargi_rsvp')||'[]');
     list.push({name,count,going,at:new Date().toISOString()});localStorage.setItem('gargi_rsvp',JSON.stringify(list));
-    msg.textContent=going?'Thank you! We can’t wait to see you.':'Thank you for letting us know.';
+    const text='Wedding RSVP — Krishan Pal Singh & Sania Chauhan\nYour name: '+name+'\nPersons coming: '+count+'\nStatus: '+(going?'Attending':'Not attending');
+    const a=document.createElement('a');
+    a.href='https://wa.me/'+RSVP_PHONE+'?text='+encodeURIComponent(text);
+    a.target='_blank';a.rel='noopener';a.click();
+    msg.textContent='Opening WhatsApp… please press SEND there to confirm.';
   });
 
   /* calendar ICS */
