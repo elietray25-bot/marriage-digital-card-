@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Krishan &amp; Sania — Wedding Invitation</title>
+<title>KRISHAN &amp; SANIA — Wedding Invitation</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&family=Noto+Serif+Devanagari:wght@400;600&display=swap');
   :root{
@@ -114,7 +114,7 @@
   .rsvp input{width:100%;padding:12px;margin:7px 0;background:rgba(255,255,255,.04);border:1px solid rgba(211,168,92,.3);color:var(--cream);font-family:Jost,sans-serif;font-size:13px}
   .rsvp input::placeholder{color:#a98e6c}
   #rsvpMsg{min-height:20px;margin-top:12px;font-size:12px;color:#e8c98f;line-height:1.6}
-  #rsvpMsg a{color:var(--gold);text-decoration:underline}
+  #rsvpMsg a,#shareHint a{color:var(--gold);text-decoration:underline}
 
   /* signature mark + footer + music */
   .signature{max-width:340px;margin:8px auto 0;padding:24px 18px;border:1px solid rgba(211,168,92,.55);background:linear-gradient(135deg,rgba(211,168,92,.12),rgba(211,168,92,.02));display:flex;flex-direction:column;align-items:center;gap:10px;position:relative}
@@ -134,7 +134,7 @@
   <div class="line-hi">आपके लिए प्रेम से भरा यह निमंत्रण — कृपया खोलें</div>
   <div class="envelope">
     <div class="env-back"></div>
-    <div class="env-card"><div class="n">Krishan &amp; Sania</div><div class="s">Wedding invitation</div></div>
+    <div class="env-card"><div class="n">KRISHAN &amp; SANIA</div><div class="s">Wedding invitation</div></div>
     <div class="env-flap"></div>
     <div class="env-pocket"></div>
   </div>
@@ -156,7 +156,7 @@
     </svg>
     <div class="petals" id="petals"></div>
     <div class="eyebrow">Together with their families</div>
-    <h1>Krishan <em>&amp; Sania</em></h1>
+    <h1>KRISHAN <em>&amp; SANIA</em></h1>
     <div class="date">7–12 December 2026 · Jaipur → Panipat</div>
     <div class="line"></div>
     <div class="scroll-hint">Scroll to begin ↓</div>
@@ -178,7 +178,7 @@
     <div class="kicker">A favourite moment</div>
     <h2>Our story</h2>
     <figure class="photo-frame" id="photoFrame">
-      <img src="IMG_7190-web.jpg" alt="Krishan and Sania — moment three">
+      <img src="IMG_7190-web.jpg" alt="KRISHAN and SANIA — moment three">
       <figcaption>Moment 03</figcaption>
     </figure>
     <div class="photo-hint">Tap to enlarge</div>
@@ -189,8 +189,8 @@
     <h2>Two families, one union</h2>
     <div class="family">
       <p>Smt. Ratan Devi &amp; the late Shri Babulal Ji</p>
-      <p><b>Krishan Pal Singh</b><br>Grandson of late Smt. Sundari Devi &amp; late Shri Udayram Ji</p>
-      <p><b>Sania Chauhan</b><br>Daughter of Smt. Rajbala Devi &amp; Shri Rakesh Ji Chauhan</p>
+      <p><b>KRISHAN PAL SINGH</b><br>Grandson of late Smt. Sundari Devi &amp; late Shri Udayram Ji</p>
+      <p><b>SANIA CHAUHAN</b><br>Daughter of Smt. Rajbala Devi &amp; Shri Rakesh Ji Chauhan</p>
     </div>
   </section>
 
@@ -249,17 +249,19 @@
     <div class="kicker">Swagatkarte</div>
     <h2>Welcoming you</h2>
     <div class="tags">
-      <span class="tag">Bal Vijaypal Singh – Suman</span>
+      <span class="tag">Vijaypal Singh – Suman</span>
       <span class="tag">Dr. Lalita – Vinod Ji</span>
-      <span class="tag">Dhanaram</span>
       <span class="tag">Kuldeep Pal Singh – Sonam</span>
-      <span class="tag">Soni – Sunil Ji</span>
-      <span class="tag">Rajendra, Pawan</span>
-      <span class="tag">Jyoti – Kapur</span>
-      <span class="tag">Ajay, Jitendra</span>
-      <span class="tag">Nanihal: Kevin &amp; family</span>
-      <span class="tag">Babli Badgurjar family</span>
-      <span class="tag">Rajkumar, Sonu, Monu</span>
+      <span class="tag">Rajendra, Kevin</span>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="kicker dev">बच्चों का स्वागत</div>
+    <h2>The little ones</h2>
+    <div class="tags">
+      <span class="tag">Gargi</span>
+      <span class="tag">Charvi</span>
     </div>
   </section>
 
@@ -290,7 +292,8 @@
   </section>
 
   <section class="reveal" style="padding-top:10px">
-    <div class="actions"><button class="btn" id="shareBtn">Share photo + link</button><button class="btn" id="copyBtn">Copy invite link</button></div>
+    <div class="actions"><button class="btn" id="shareBtn">Share photo + link</button><a class="btn" href="share-poster.jpg" target="_blank" rel="noopener" download>Save invite photo</a><button class="btn" id="copyBtn">Copy invite link</button></div>
+    <div class="tiny" id="shareHint">On most phones, “Share photo + link” attaches the photo automatically. Otherwise save the photo and attach it in WhatsApp yourself.</div>
   </section>
 
   <section class="reveal">
@@ -301,7 +304,7 @@
     </div>
   </section>
 
-  <footer>Krishan Pal Singh &amp; Sania Chauhan · 12.12.2026 · Panipat<br>Made with love</footer>
+  <footer>KRISHAN PAL SINGH &amp; SANIA CHAUHAN · 12.12.2026 · Panipat<br>Made with love</footer>
 </div>
 <div class="lightbox" id="lightbox"><button class="close" id="lightboxClose" aria-label="Close photo">×</button><img id="lightboxImg" alt="Enlarged photograph"></div>
 <audio id="weddingSong" preload="auto" src="ek-dil-ek-jaan.mp3"></audio>
@@ -344,7 +347,7 @@
     if(!name){msg.textContent='Please enter your name.';return}
     const list=JSON.parse(localStorage.getItem('gargi_rsvp')||'[]');
     list.push({name,count,going,at:new Date().toISOString()});localStorage.setItem('gargi_rsvp',JSON.stringify(list));
-    const text='Wedding RSVP — Krishan Pal Singh & Sania Chauhan\nYour name: '+name+'\nPersons coming: '+count+'\nStatus: '+(going?'Attending':'Not attending');
+    const text='Wedding RSVP — KRISHAN PAL SINGH & SANIA CHAUHAN\nYour name: '+name+'\nPersons coming: '+count+'\nStatus: '+(going?'Attending':'Not attending');
     const url='https://wa.me/'+RSVP_PHONE+'?text='+encodeURIComponent(text);
     msg.innerHTML='Opening WhatsApp… if it doesn\'t open, <a href="'+url+'" target="_blank" rel="noopener">tap here</a>. Then press SEND.';
     window.open(url,'_blank','noopener');
@@ -354,7 +357,7 @@
   document.getElementById('calBtn').addEventListener('click',()=>{
     const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding//IN','BEGIN:VEVENT',
       'UID:krishan-sania-2026@example.com','DTSTAMP:20260101T000000Z','DTSTART;VALUE=DATE:20261212','DTEND;VALUE=DATE:20261213',
-      'SUMMARY:Krishan Pal Singh & Sania Chauhan — Wedding','LOCATION:Gauri Mandapam, Sector-25, near Mittal Mall, Panipat, Haryana',
+      'SUMMARY:KRISHAN PAL SINGH & SANIA CHAUHAN — Wedding','LOCATION:Gauri Mandapam, Sector-25, near Mittal Mall, Panipat, Haryana',
       'DESCRIPTION:Wedding ceremony and reception','END:VEVENT','END:VCALENDAR'].join('\r\n');
     const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
     a.download='krishan-sania-wedding.ics';a.click();URL.revokeObjectURL(a.href);
@@ -362,7 +365,7 @@
 
   /* share — photo + message + link on supported phones, link-only fallback */
   document.getElementById('shareBtn').addEventListener('click',async()=>{
-    const text='You’re invited to the wedding of Krishan Pal Singh & Sania Chauhan, 7–12 December 2026. Jaipur celebrations and the wedding in Panipat.';
+    const text='You’re invited to the wedding of KRISHAN PAL SINGH & SANIA CHAUHAN, 7–12 December 2026. Jaipur celebrations and the wedding in Panipat.';
     let file=null;
     try{
       const res=await fetch('share-poster.jpg');
@@ -374,11 +377,12 @@
     if(file && navigator.share){
       try{
         if(!navigator.canShare || navigator.canShare({files:[file]})){
-          await navigator.share({files:[file],title:'Krishan & Sania Wedding Invitation',text:text+' '+location.href});
+          await navigator.share({files:[file],title:'KRISHAN & SANIA Wedding Invitation',text:text+' '+location.href});
           return;
         }
       }catch(e){ if(e && e.name==='AbortError')return; }
     }
+    document.getElementById('shareHint').innerHTML='Photo sharing isn\'t supported in this browser. <a href="share-poster.jpg" target="_blank" rel="noopener">Open/save the invite photo</a>, then attach it in WhatsApp with the link.';
     window.open('https://wa.me/?text='+encodeURIComponent(text+' '+location.href),'_blank','noopener');
   });
   document.getElementById('copyBtn').addEventListener('click',async()=>{
