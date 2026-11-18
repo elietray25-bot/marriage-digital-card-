@@ -290,7 +290,7 @@
   </section>
 
   <section class="reveal" style="padding-top:10px">
-    <div class="actions"><button class="btn" id="shareBtn">Share on WhatsApp</button><button class="btn" id="copyBtn">Copy invite link</button></div>
+    <div class="actions"><button class="btn" id="shareBtn">Share photo + link</button><button class="btn" id="copyBtn">Copy invite link</button></div>
   </section>
 
   <section class="reveal">
@@ -360,9 +360,26 @@
     a.download='krishan-sania-wedding.ics';a.click();URL.revokeObjectURL(a.href);
   });
 
-  /* share */
-  document.getElementById('shareBtn').addEventListener('click',()=>{
-    window.open('https://wa.me/?text='+encodeURIComponent('You’re invited to the wedding of Krishan Pal Singh & Sania Chauhan, 7–12 December 2026. Jaipur celebrations and the wedding in Panipat. '  + location.href),'_blank','noopener');
+  /* share — photo + message + link on supported phones, link-only fallback */
+  document.getElementById('shareBtn').addEventListener('click',async()=>{
+    const text='You’re invited to the wedding of Krishan Pal Singh & Sania Chauhan, 7–12 December 2026. Jaipur celebrations and the wedding in Panipat.';
+    let file=null;
+    try{
+      const res=await fetch('share-poster.jpg');
+      if(res.ok){
+        const blob=await res.blob();
+        file=new File([blob],'krishan-sania-invitation.jpg',{type:'image/jpeg'});
+      }
+    }catch(_){}
+    if(file && navigator.share){
+      try{
+        if(!navigator.canShare || navigator.canShare({files:[file]})){
+          await navigator.share({files:[file],title:'Krishan & Sania Wedding Invitation',text:text+' '+location.href});
+          return;
+        }
+      }catch(e){ if(e && e.name==='AbortError')return; }
+    }
+    window.open('https://wa.me/?text='+encodeURIComponent(text+' '+location.href),'_blank','noopener');
   });
   document.getElementById('copyBtn').addEventListener('click',async()=>{
     try{await navigator.clipboard.writeText(location.href);document.getElementById('copyBtn').textContent='Copied!'}catch{document.getElementById('copyBtn').textContent='Copy the address bar'}
