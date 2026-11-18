@@ -113,7 +113,8 @@
   .chip.sel{background:var(--gold);color:var(--deep)}
   .rsvp input{width:100%;padding:12px;margin:7px 0;background:rgba(255,255,255,.04);border:1px solid rgba(211,168,92,.3);color:var(--cream);font-family:Jost,sans-serif;font-size:13px}
   .rsvp input::placeholder{color:#a98e6c}
-  #rsvpMsg{min-height:20px;margin-top:12px;font-size:12px;color:#e8c98f}
+  #rsvpMsg{min-height:20px;margin-top:12px;font-size:12px;color:#e8c98f;line-height:1.6}
+  #rsvpMsg a{color:var(--gold);text-decoration:underline}
 
   /* signature mark + footer + music */
   .signature{max-width:340px;margin:8px auto 0;padding:24px 18px;border:1px solid rgba(211,168,92,.55);background:linear-gradient(135deg,rgba(211,168,92,.12),rgba(211,168,92,.02));display:flex;flex-direction:column;align-items:center;gap:10px;position:relative}
@@ -344,10 +345,9 @@
     const list=JSON.parse(localStorage.getItem('gargi_rsvp')||'[]');
     list.push({name,count,going,at:new Date().toISOString()});localStorage.setItem('gargi_rsvp',JSON.stringify(list));
     const text='Wedding RSVP — Krishan Pal Singh & Sania Chauhan\nYour name: '+name+'\nPersons coming: '+count+'\nStatus: '+(going?'Attending':'Not attending');
-    const a=document.createElement('a');
-    a.href='https://wa.me/'+RSVP_PHONE+'?text='+encodeURIComponent(text);
-    a.target='_blank';a.rel='noopener';a.click();
-    msg.textContent='Opening WhatsApp… please press SEND there to confirm.';
+    const url='https://wa.me/'+RSVP_PHONE+'?text='+encodeURIComponent(text);
+    msg.innerHTML='Opening WhatsApp… if it doesn\'t open, <a href="'+url+'" target="_blank" rel="noopener">tap here</a>. Then press SEND.';
+    window.open(url,'_blank','noopener');
   });
 
   /* calendar ICS */
