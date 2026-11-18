@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Krishan &amp; Sania — Wedding Invitation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&family=Noto+Serif+Devanagari:wght@400;600&display=swap');
+  :root{
+    --maroon:#4a1220; --deep:#2b0a13; --gold:#d3a85c; --cream:#f7ecd9; --rose:#b86b6b;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:auto} /* auto-scroll is eased in JS */
+  body{margin:0;background:var(--deep);color:var(--cream);font-family:Jost,Georgia,sans-serif;overflow-x:hidden}
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400}
+
+  /* shell */
+  .phone{position:relative;max-width:430px;margin:0 auto;min-height:100vh;background:linear-gradient(180deg,#3d0e1a,#260810 70%);box-shadow:0 0 80px rgba(0,0,0,.6);overflow:hidden}
+  .grain{position:fixed;inset:0;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");z-index:20}
+
+  /* opening envelope */
+  .intro{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;background:radial-gradient(circle at 50% 40%,#5a1526 0%,#2b0a13 75%);transition:opacity .8s ease,visibility .8s}
+  .intro.gone{opacity:0;visibility:hidden;pointer-events:none}
+  .intro .line-hi{font-family:'Noto Serif Devanagari',Georgia,serif;font-size:17px;color:#e8c98f;letter-spacing:.02em;text-align:center;padding:0 24px}
+  .intro .line-en{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#c9a97b;text-align:center}
+  .envelope{position:relative;width:280px;height:186px;perspective:900px;cursor:default}
+  .env-back{position:absolute;inset:0;background:linear-gradient(145deg,#8c2340,#5c1426);border:1px solid var(--gold);box-shadow:0 24px 50px -20px rgba(0,0,0,.9)}
+  .env-card{position:absolute;left:22px;right:22px;top:22px;height:130px;background:linear-gradient(160deg,#fbf1dc,#efdcb6);border:1px solid #c9a24d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:transform 1s cubic-bezier(.22,.8,.25,1) .25s;z-index:2}
+  .env-card .n{font-family:'Cormorant Garamond',serif;font-size:24px;color:#6d1d2c}
+  .env-card .s{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#9a6a3c}
+  .env-flap{position:absolute;left:0;right:0;top:0;height:94px;background:linear-gradient(160deg,#a12c4a,#6d182d);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .9s cubic-bezier(.22,.8,.25,1);z-index:3;border-top:1px solid var(--gold)}
+  .env-pocket{position:absolute;left:0;right:0;bottom:0;height:112px;background:linear-gradient(160deg,#7d1c35,#4e1020);clip-path:polygon(0 100%,100% 100%,100% 0,50% 62%,0 0);z-index:4;border-bottom:1px solid var(--gold)}
+  .intro.opening .env-flap{transform:rotateX(-180deg)}
+  .intro.opening .env-card{transform:translateY(-78px)}
+  .open-btn{padding:14px 30px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:Jost,sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;transition:.25s}
+  .open-btn:hover{background:var(--gold);color:var(--deep)}
+
+  /* cover */
+  .cover{position:relative;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px}
+  .mandala{position:absolute;top:50%;left:50%;width:520px;height:520px;transform:translate(-50%,-50%);opacity:.16;animation:spin 90s linear infinite}
+  @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+  .petals{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+  .petal{position:absolute;top:-30px;width:9px;height:14px;border-radius:50% 0 50% 0;background:rgba(211,168,92,.5);animation:fall linear infinite}
+  @keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:0}}
+  .cover .eyebrow{font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);animation:fadeUp 1s .2s both}
+  .cover h1{font-size:56px;line-height:.95;margin:22px 0 6px;color:#f9e6c4;animation:fadeUp 1s .5s both}
+  .cover h1 em{display:block;font-size:34px;color:var(--gold);margin:4px 0}
+  .cover .date{font-size:12px;letter-spacing:.34em;text-transform:uppercase;margin-top:18px;color:#e8cfa6;animation:fadeUp 1s .8s both}
+  .cover .line{width:1px;height:52px;background:linear-gradient(var(--gold),transparent);margin-top:30px;animation:fadeUp 1s 1s both}
+  .scroll-hint{position:absolute;bottom:26px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#c9a97b;animation:pulse 2s infinite}
+  @keyframes pulse{50%{opacity:.35}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+  /* sections */
+  section{padding:70px 28px;position:relative}
+  .reveal{opacity:0;transform:translateY(26px);transition:.9s ease}
+  .reveal.in{opacity:1;transform:none}
+  .kicker{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);text-align:center}
+  h2{font-size:38px;text-align:center;margin:10px 0 26px;color:#f6dfb6}
+  .verse{text-align:center;font-style:italic;font-size:18px;color:#e3cba8;line-height:1.7;max-width:320px;margin:0 auto}
+
+  /* countdown */
+  .countdown{display:flex;justify-content:center;gap:10px;margin-top:30px}
+  .cd-box{width:66px;padding:12px 0;border:1px solid rgba(211,168,92,.4);border-radius:4px;text-align:center;background:rgba(211,168,92,.05)}
+  .cd-box b{display:block;font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);font-weight:400}
+  .cd-box span{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:#c9ad83}
+
+  /* events */
+  .event{position:relative;margin:0 auto 16px;max-width:340px;border:1px solid rgba(211,168,92,.3);padding:20px 18px;background:linear-gradient(135deg,rgba(211,168,92,.09),rgba(211,168,92,.02));display:flex;gap:16px;align-items:center}
+  .event .no{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--gold);min-width:38px}
+  .event h3{margin:0;font-size:23px;color:#f5dfb7}
+  .event p{margin:4px 0 0;font-size:11px;letter-spacing:.08em;color:#d6bd99;line-height:1.6}
+  .event . icon{color:var(--gold)}
+  .event p b{color:#f5dfb7;font-weight:500}
+  .timeline .day{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:24px 0 8px;border-bottom:1px solid rgba(211,168,92,.22);padding-bottom:6px}
+  .family{max-width:340px;margin:0 auto;text-align:center;font-size:13px;line-height:1.9;color:#e3cba8}
+  .family b{color:#f5dfb7;font-weight:500}
+  .dev{font-family:'Noto Serif Devanagari',Georgia,serif;color:#e8c98f;font-size:15px}
+  .info{max-width:340px;margin:0 auto;font-size:12px;line-height:1.8;color:#d6bd99}
+  .info .row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dotted rgba(211,168,92,.25);padding:7px 0}
+  .info .row span:last-child{text-align:right;color:#f0d7ab}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:14px}
+  .tag{font-size:10px;letter-spacing:.06em;border:1px solid rgba(211,168,92,.3);padding:6px 9px;color:#d9bd91}
+  .quote{text-align:center;font-style:italic;font-size:15px;color:#e8c98f;margin:18px 0;line-height:1.7}
+  .tiny{font-size:9px;color:#a98e6c;text-align:center;margin-top:14px;line-height:1.6}
+
+  /* single photo */
+  .photo-frame{max-width:340px;margin:0 auto;cursor:zoom-in}
+  .photo-frame img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;border:1px solid rgba(211,168,92,.45);box-shadow:0 12px 26px -16px rgba(0,0,0,.9)}
+  .photo-frame figcaption{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#c9a97b;margin-top:9px;text-align:center}
+  .photo-hint{text-align:center;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#a98e6c;margin-top:8px}
+  .lightbox{position:fixed;inset:0;z-index:70;background:rgba(12,4,8,.95);display:none;align-items:center;justify-content:center;padding:18px;cursor:zoom-out}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:100%;max-height:90vh;object-fit:contain;border:1px solid rgba(211,168,92,.5)}
+  .lightbox .close{position:absolute;top:16px;right:18px;width:36px;height:36px;border-radius:50%;border:1px solid var(--gold);background:transparent;color:var(--gold);font-size:20px;cursor:pointer}
+
+  /* venue */
+  .venue-card{max-width:340px;margin:0 auto;text-align:center;border:1px solid rgba(211,168,92,.3);padding:26px 20px;background:rgba(0,0,0,.15)}
+  .venue-card h3{font-size:26px;color:#f5dfb7;margin:0 0 6px}
+  .venue-card p{font-size:12px;color:#d6bd99;line-height:1.7;margin:0 0 18px}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 20px;border:1px solid var(--gold);color:var(--gold);background:transparent;font-family:Jost,sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.25s}
+  .btn:hover,.btn:focus-visible{background:var(--gold);color:var(--deep)}
+  .btn.gold{background:var(--gold);color:var(--deep)}
+  .btn.gold:hover{background:#e9c483}
+  .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
+
+  /* rsvp */
+  .rsvp{max-width:340px;margin:0 auto;text-align:center}
+  .chips{display:flex;gap:10px;justify-content:center;margin:18px 0}
+  .chip{flex:1;padding:12px;border:1px solid rgba(211,168,92,.4);cursor:pointer;font-size:12px;letter-spacing:.1em;transition:.2s}
+  .chip.sel{background:var(--gold);color:var(--deep)}
+  .rsvp input{width:100%;padding:12px;margin:7px 0;background:rgba(255,255,255,.04);border:1px solid rgba(211,168,92,.3);color:var(--cream);font-family:Jost,sans-serif;font-size:13px}
+  .rsvp input::placeholder{color:#a98e6c}
+  #rsvpMsg{min-height:20px;margin-top:12px;font-size:12px;color:#e8c98f}
+
+  /* signature mark + footer + music */
+  .signature{max-width:340px;margin:8px auto 0;padding:24px 18px;border:1px solid rgba(211,168,92,.55);background:linear-gradient(135deg,rgba(211,168,92,.12),rgba(211,168,92,.02));display:flex;flex-direction:column;align-items:center;gap:10px;position:relative}
+  .signature::before,.signature::after{content:'✦';position:absolute;top:8px;color:var(--gold);font-size:11px}
+  .signature::before{left:10px}.signature::after{right:10px}
+  .sig-monogram{width:48px;height:48px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);box-shadow:0 0 0 5px rgba(211,168,92,.07)}
+  .sig-title{font-family:'Cormorant Garamond',serif;font-size:21px;color:#f5dfb7;letter-spacing:.02em}
+  .sig-sub{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#c9a97b}
+  footer{text-align:center;padding:34px 20px 60px;font-size:11px;letter-spacing:.2em;color:#a98e6c}
+  .music{position:fixed;right:max(14px,calc((100vw - 430px)/2 + 14px));bottom:18px;z-index:30;width:42px;height:42px;border-radius:50%;border:1px solid var(--gold);background:rgba(43,8,16,.85);color:var(--gold);cursor:pointer;font-size:16px;backdrop-filter:blur(4px)}
+  .music.playing{animation:pulse 1.4s infinite}
+  @media(max-width:430px){.cover h1{font-size:46px}.mandala{width:400px;height:400px}}
+</style>
+</head>
+<body>
+<div class="intro" id="intro">
+  <div class="line-hi">आपके लिए प्रेम से भरा यह निमंत्रण — कृपया खोलें</div>
+  <div class="envelope">
+    <div class="env-back"></div>
+    <div class="env-card"><div class="n">Krishan &amp; Sania</div><div class="s">Wedding invitation</div></div>
+    <div class="env-flap"></div>
+    <div class="env-pocket"></div>
+  </div>
+  <button class="open-btn" id="openBtn">खोलें · Open</button>
+  <div class="line-en">A little love letter from Jaipur</div>
+</div>
+<div class="grain"></div>
+<div class="phone">
+
+  <div class="cover">
+    <svg class="mandala" viewBox="0 0 200 200" fill="none" stroke="#d3a85c" stroke-width=".8">
+      <circle cx="100" cy="100" r="95"/><circle cx="100" cy="100" r="70"/><circle cx="100" cy="100" r="40"/>
+      <g fill="rgba(211,168,92,.2)">
+        <ellipse cx="100" cy="20" rx="9" ry="25"/><ellipse cx="100" cy="180" rx="9" ry="25"/>
+        <ellipse cx="20" cy="100" rx="25" ry="9"/><ellipse cx="180" cy="100" rx="25" ry="9"/>
+        <ellipse cx="43" cy="43" rx="9" ry="25" transform="rotate(-45 43 43)"/><ellipse cx="157" cy="157" rx="9" ry="25" transform="rotate(-45 157 157)"/>
+        <ellipse cx="157" cy="43" rx="9" ry="25" transform="rotate(45 157 43)"/><ellipse cx="43" cy="157" rx="9" ry="25" transform="rotate(45 43 157)"/>
+      </g>
+    </svg>
+    <div class="petals" id="petals"></div>
+    <div class="eyebrow">Together with their families</div>
+    <h1>Krishan <em>&amp; Sania</em></h1>
+    <div class="date">7–12 December 2026 · Jaipur → Panipat</div>
+    <div class="line"></div>
+    <div class="scroll-hint">Scroll to begin ↓</div>
+  </div>
+
+  <section class="reveal">
+    <div class="kicker dev">|| श्री गणेशाय नमः ||</div>
+    <h2>A celebration of love</h2>
+    <p class="verse">By the grace of the almighty, we invite you to celebrate the wedding of<br><span class="dev">कृष्ण पाल सिंह</span> &amp; <span class="dev">सानिया चौहान</span></p>
+    <div class="countdown" id="countdown">
+      <div class="cd-box"><b id="d">00</b><span>Days</span></div>
+      <div class="cd-box"><b id="h">00</b><span>Hours</span></div>
+      <div class="cd-box"><b id="m">00</b><span>Mins</span></div>
+      <div class="cd-box"><b id="s">00</b><span>Secs</span></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="kicker">A favourite moment</div>
+    <h2>Our story</h2>
+    <figure class="photo-frame" id="photoFrame">
+      <img src="IMG_7190-web.jpg" alt="Krishan and Sania — moment three">
+      <figcaption>Moment 03</figcaption>
+    </figure>
+    <div class="photo-hint">Tap to enlarge</div>
+  </section>
+
+  <section class="reveal">
+    <div class="kicker">The families</div>
+    <h2>Two families, one union</h2>
+    <div class="family">
+      <p>Smt. Ratan Devi &amp; the late Shri Babulal Ji</p>
+      <p><b>Krishan Pal Singh</b><br>Grandson of late Smt. Sundari Devi &amp; late Shri Udayram Ji</p>
+      <p><b>Sania Chauhan</b><br>Daughter of Smt. Rajbala Devi &amp; Shri Rakesh Ji Chauhan</p>
+    </div>
+  </section>
+
+  <section class="reveal timeline">
+    <div class="kicker">The celebrations</div>
+    <h2>Six days of joy</h2>
+
+    <div class="day">Monday · 7 December 2026 · Jaipur</div>
+    <div class="event"><div class="no">01</div><div><h3>Tilak</h3><p><b>2:00 PM</b><br>Saini Farm, near Hill Site Resort, Sumeel Chowk, Jaipur</p></div></div>
+    <div class="event"><div class="no">02</div><div><h3>Sagai</h3><p><b>3:15 PM onwards</b><br>Saini Farm, Jaipur</p></div></div>
+    <div class="event"><div class="no">03</div><div><h3>Lagna</h3><p><b>4:15 PM</b><br>Saini Farm, Jaipur</p></div></div>
+    <div class="event"><div class="no">04</div><div><h3>Dinner</h3><p><b>6:00 PM onwards</b><br>Saini Farm, Jaipur</p></div></div>
+
+    <div class="day">Wednesday · 9 December 2026 · Jaipur</div>
+    <div class="event"><div class="no">05</div><div><h3>Haldi</h3><p>Saini Farm, Jaipur</p></div></div>
+
+    <div class="day">Thursday · 10 December 2026 · Jaipur</div>
+    <div class="event"><div class="no">06</div><div><h3>Mehendi</h3><p><b>4:15 PM</b><br>Saini Farm, Jaipur</p></div></div>
+    <div class="event"><div class="no">07</div><div><h3>Mahila Sangeet</h3><p><b>7:15 PM</b><br>Saini Farm, Jaipur</p></div></div>
+
+    <div class="day">Friday · 11 December 2026 · Jaipur</div>
+    <div class="event"><div class="no">08</div><div><h3>Nikasi</h3><p><b>5:00 PM</b><br>Saini Farm, Jaipur</p></div></div>
+
+    <div class="day">Saturday · 12 December 2026 · Panipat</div>
+    <div class="event"><div class="no">09</div><div><h3>Baraat Departure</h3><p><b>7:00 AM</b> from Saini Farm, Jaipur<br>To Gauri Mandapam, Sector-25, near Mittal Mall, Panipat</p></div></div>
+  </section>
+
+  <section class="reveal">
+    <div class="kicker">The venues</div>
+    <h2>Where to find us</h2>
+    <div class="venue-card" style="margin-bottom:14px">
+      <h3>Saini Farm, Jaipur</h3>
+      <p>Near Hill Site Resort, Sumeel Chowk, Jaipur<br>Pre-wedding ceremonies</p>
+      <div class="actions"><a class="btn" href="https://www.google.com/maps?q=26.915630340576172,75.91592407226562&amp;z=17&amp;hl=en" target="_blank" rel="noopener">Get directions</a></div>
+    </div>
+    <div class="venue-card">
+      <h3>Gauri Mandapam, Panipat</h3>
+      <p>Sector-25, near Mittal Mall, Panipat, Haryana<br>Wedding ceremony</p>
+      <div class="actions"><a class="btn" href="https://maps.google.com/?q=Gauri+Mandapam+Sector+25+Panipat" target="_blank" rel="noopener">Get directions</a><button class="btn gold" id="calBtn">Add to calendar</button></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="kicker">Contact</div>
+    <h2>Reach us</h2>
+    <div class="info">
+      <div class="row"><span>Phone</span><span>93145 10484</span></div>
+      <div class="row"><span>Phone</span><span>90249 12022</span></div>
+      <div class="row"><span>Phone</span><span>90019 51527</span></div>
+      <div class="row"><span>Address</span><span>21-A, Ghoda Nikas Road,<br>Ramgunj Bazaar, Jaipur</span></div>
+      <div class="tiny">Timings transcribed from the printed invitation — please verify before sharing.</div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="kicker">Swagatkarte</div>
+    <h2>Welcoming you</h2>
+    <div class="tags">
+      <span class="tag">Bal Vijaypal Singh – Suman</span>
+      <span class="tag">Dr. Lalita – Vinod Ji</span>
+      <span class="tag">Dhanaram</span>
+      <span class="tag">Kuldeep Pal Singh – Sonam</span>
+      <span class="tag">Soni – Sunil Ji</span>
+      <span class="tag">Rajendra, Pawan</span>
+      <span class="tag">Jyoti – Kapur</span>
+      <span class="tag">Ajay, Jitendra</span>
+      <span class="tag">Nanihal: Kevin &amp; family</span>
+      <span class="tag">Babli Badgurjar family</span>
+      <span class="tag">Rajkumar, Sonu, Monu</span>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="kicker">With thanks to</div>
+    <h2>Our sponsors</h2>
+    <div class="tags">
+      <span class="tag">Gargi Animal Care And Control Service Provider</span>
+      <span class="tag">Safe Rescue Team Venture</span>
+      <span class="tag">K.K. Brother Shoes</span>
+      <span class="tag">Fit-R-Fashion</span>
+    </div>
+    <p class="quote dev">आँखों में सपने, दिल में है प्यार,<br>हमारे यहाँ शादी में आपका इंतजार .....</p>
+    <div class="tiny dev">गार्गी, अंजू, विनय, चार्वी, देवांश, वंशिका, सौरव, यशिका</div>
+  </section>
+
+  <section class="reveal">
+    <div class="kicker">Kindly reply</div>
+    <h2>Will you join us?</h2>
+    <div class="rsvp">
+      <div class="chips"><div class="chip sel" data-v="yes">Joyfully accept</div><div class="chip" data-v="no">Regretfully decline</div></div>
+      <input id="guestName" placeholder="Your full name" aria-label="Your name">
+      <input id="guestCount" type="number" min="1" max="10" value="1" aria-label="Number of guests">
+      <div class="actions"><button class="btn gold" id="rsvpBtn">Send RSVP</button></div>
+      <div id="rsvpMsg"></div>
+    </div>
+  </section>
+
+  <section class="reveal" style="padding-top:10px">
+    <div class="actions"><button class="btn" id="shareBtn">Share on WhatsApp</button><button class="btn" id="copyBtn">Copy invite link</button></div>
+  </section>
+
+  <section class="reveal">
+    <div class="signature">
+      <div class="sig-monogram">K</div>
+      <div class="sig-title">Made by Kevin</div>
+      <div class="sig-sub">From the Bride's side</div>
+    </div>
+  </section>
+
+  <footer>Krishan Pal Singh &amp; Sania Chauhan · 12.12.2026 · Panipat<br>Made with love</footer>
+</div>
+<div class="lightbox" id="lightbox"><button class="close" id="lightboxClose" aria-label="Close photo">×</button><img id="lightboxImg" alt="Enlarged photograph"></div>
+<audio id="weddingSong" preload="auto" src="ek-dil-ek-jaan.mp3"></audio>
+<button class="music" id="musicBtn" title="Play the wedding song" aria-label="Play the wedding song">♪</button>
+
+<script>
+  /* floating petals */
+  const petals = document.getElementById('petals');
+  for (let i=0;i<18;i++){
+    const p=document.createElement('i');p.className='petal';
+    p.style.left=Math.random()*100+'%';p.style.animationDuration=(7+Math.random()*8)+'s';
+    p.style.animationDelay=(-Math.random()*12)+'s';p.style.opacity=.2+Math.random()*.4;
+    p.style.transform='scale('+(.6+Math.random())+')';petals.appendChild(p);
+  }
+
+  /* reveal on scroll */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* countdown */
+  const target=new Date('2026-12-07T14:00:00+05:30').getTime();
+  const ids=['d','h','m','s'];
+  function tick(){
+    const diff=Math.max(0,target-Date.now());
+    const vals=[Math.floor(diff/864e5),Math.floor(diff/36e5)%24,Math.floor(diff/6e4)%60,Math.floor(diff/1e3)%60];
+    ids.forEach((id,i)=>document.getElementById(id).textContent=String(vals[i]).padStart(2,'0'));
+  }
+  tick();setInterval(tick,1000);
+
+  /* RSVP chips + local save */
+  let going=true;
+  document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');going=c.dataset.v==='yes';
+  }));
+  document.getElementById('rsvpBtn').addEventListener('click',()=>{
+    const name=document.getElementById('guestName').value.trim();
+    const count=document.getElementById('guestCount').value;
+    const msg=document.getElementById('rsvpMsg');
+    if(!name){msg.textContent='Please enter your name.';return}
+    const list=JSON.parse(localStorage.getItem('gargi_rsvp')||'[]');
+    list.push({name,count,going,at:new Date().toISOString()});localStorage.setItem('gargi_rsvp',JSON.stringify(list));
+    msg.textContent=going?'Thank you! We can’t wait to see you.':'Thank you for letting us know.';
+  });
+
+  /* calendar ICS */
+  document.getElementById('calBtn').addEventListener('click',()=>{
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding//IN','BEGIN:VEVENT',
+      'UID:krishan-sania-2026@example.com','DTSTAMP:20260101T000000Z','DTSTART;VALUE=DATE:20261212','DTEND;VALUE=DATE:20261213',
+      'SUMMARY:Krishan Pal Singh & Sania Chauhan — Wedding','LOCATION:Gauri Mandapam, Sector-25, near Mittal Mall, Panipat, Haryana',
+      'DESCRIPTION:Wedding ceremony and reception','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
+    a.download='krishan-sania-wedding.ics';a.click();URL.revokeObjectURL(a.href);
+  });
+
+  /* share */
+  document.getElementById('shareBtn').addEventListener('click',()=>{
+    window.open('https://wa.me/?text='+encodeURIComponent('You’re invited to the wedding of Krishan Pal Singh & Sania Chauhan, 7–12 December 2026. Jaipur celebrations and the wedding in Panipat. '  + location.href),'_blank','noopener');
+  });
+  document.getElementById('copyBtn').addEventListener('click',async()=>{
+    try{await navigator.clipboard.writeText(location.href);document.getElementById('copyBtn').textContent='Copied!'}catch{document.getElementById('copyBtn').textContent='Copy the address bar'}
+  });
+
+  /* single photo — tap to enlarge */
+  const lightbox=document.getElementById('lightbox'),lightboxImg=document.getElementById('lightboxImg');
+  const photoImg=document.querySelector('#photoFrame img');
+  photoImg.addEventListener('click',()=>{
+    lightboxImg.src=photoImg.src;lightboxImg.alt=photoImg.alt;lightbox.classList.add('open');
+  });
+  const closeLightbox=()=>{lightbox.classList.remove('open');lightboxImg.src=''};
+  document.getElementById('lightboxClose').addEventListener('click',closeLightbox);
+  lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+
+  /* Wedding song — plays once, no loop. */
+  const musicBtn=document.getElementById('musicBtn');
+  let audio=null, master=null, playing=false, loopTimer=null, drones=[];
+  const song=document.getElementById('weddingSong');
+  let songPlaying=false, synthTimer=null;
+  const MELODY=[
+    [392,.5],[440,.5],[523.25,1],[440,.5],[392,.5],[329.63,1],
+    [349.23,.5],[392,.5],[440,1],[392,.5],[329.63,.5],[293.66,1],
+    [329.63,.5],[392,.5],[440,.5],[523.25,.75],[587.33,.75],[523.25,1],
+    [440,.5],[392,.5],[349.23,1],[329.63,.5],[293.66,.5],[261.63,1]
+  ];
+  const BEATS=Array.from({length:32},(_,i)=>i*0.5);
+
+  function note(freq,start,dur,vol,type='sine'){
+    const o=audio.createOscillator(),g=audio.createGain();
+    o.type=type;o.frequency.setValueAtTime(freq,start);
+    g.gain.setValueAtTime(0.0001,start);
+    g.gain.exponentialRampToValueAtTime(vol,start+0.07);
+    g.gain.setValueAtTime(vol,start+Math.max(0.1,dur-0.12));
+    g.gain.exponentialRampToValueAtTime(0.0001,start+dur);
+    o.connect(g).connect(master);
+    const lfo=audio.createOscillator(),lg=audio.createGain();
+    lfo.frequency.value=5;lg.gain.value=2.5;lfo.connect(lg).connect(o.frequency);
+    lfo.start(start);lfo.stop(start+dur+0.02);
+    o.start(start);o.stop(start+dur+0.05);
+  }
+  function tabla(start,low){
+    if(low){
+      const o=audio.createOscillator(),g=audio.createGain();
+      o.type='sine';o.frequency.setValueAtTime(170,start);
+      o.frequency.exponentialRampToValueAtTime(68,start+0.18);
+      g.gain.setValueAtTime(0.2,start);
+      g.gain.exponentialRampToValueAtTime(0.0001,start+0.26);
+      o.connect(g).connect(master);o.start(start);o.stop(start+0.27);
+    } else {
+      const len=Math.floor(audio.sampleRate*0.1);
+      const buf=audio.createBuffer(1,len,audio.sampleRate),d=buf.getChannelData(0);
+      for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*(1-i/len);
+      const src=audio.createBufferSource(),f=audio.createBiquadFilter(),g=audio.createGain();
+      src.buffer=buf;f.type='highpass';f.frequency.value=1400;g.gain.value=0.07;
+      src.connect(f).connect(g).connect(master);src.start(start);
+    }
+  }
+  function scheduleBar(){
+    const t=audio.currentTime+0.12;
+    let pos=0;
+    MELODY.forEach(([f,d])=>{note(f,t+pos,d,0.1);pos+=d});
+    BEATS.forEach((b,i)=>tabla(t+b,i%4===0));
+  }
+  function markPlaying(on){
+    playing=on;
+    musicBtn.classList.toggle('playing',on);
+    musicBtn.textContent=on?'♫':'♪';
+    musicBtn.title=on?'Turn music off':'Play the wedding song';
+    musicBtn.setAttribute('aria-label',on?'Turn music off':'Play the wedding song');
+  }
+  function playSynthOnce(){
+    audio=audio||new (window.AudioContext||window.webkitAudioContext)();
+    audio.resume();
+    master=audio.createGain();master.gain.value=0.0001;master.connect(audio.destination);
+    master.gain.exponentialRampToValueAtTime(0.55,audio.currentTime+0.8);
+    [130.81,196,261.63].forEach((f,i)=>{
+      const o=audio.createOscillator(),g=audio.createGain();
+      o.type=i===0?'triangle':'sine';o.frequency.value=f;g.gain.value=i===0?0.16:0.07;
+      o.connect(g).connect(master);o.start();drones.push(o);
+    });
+    scheduleBar();
+    synthTimer=setTimeout(stopMusic,16800);
+    markPlaying(true);
+  }
+  async function startMusic(){
+    /* Prefer the real song when the MP3 has been added. Play once, never loop. */
+    if(song && song.getAttribute('src')){
+      try{
+        song.loop=false;
+        song.currentTime=0;
+        await song.play();
+        songPlaying=true;
+        song.onended=stopMusic;
+        markPlaying(true);
+        return;
+      }catch(_){ /* no file yet — fall back to the generated instrumental */ }
+    }
+    playSynthOnce();
+  }
+  function stopMusic(){
+    clearTimeout(synthTimer);synthTimer=null;
+    clearInterval(loopTimer);loopTimer=null;
+    if(songPlaying){try{song.pause();song.currentTime=0}catch{}songPlaying=false;song.onended=null}
+    drones.forEach(o=>{try{o.stop()}catch{}});drones=[];
+    if(master){try{master.disconnect()}catch{}master=null}
+    markPlaying(false);
+  }
+  musicBtn.addEventListener('click',()=>{playing?stopMusic():startMusic()});
+  /* Browsers block autoplay until the first tap — start gently then. */
+  const autoStart=()=>{
+    if(!playing)startMusic().catch(()=>{});
+    ['pointerdown','keydown'].forEach(e=>document.removeEventListener(e,autoStart));
+  };
+  ['pointerdown','keydown'].forEach(e=>document.addEventListener(e,autoStart,{once:true}));
+
+  /* opening envelope → then gentle automatic page scrolling */
+  const intro=document.getElementById('intro'),openBtn=document.getElementById('openBtn');
+  if('scrollRestoration' in history)history.scrollRestoration='manual';
+  window.scrollTo(0,0);
+  document.body.style.overflow='hidden';
+  let opened=false;
+  function openInvite(){
+    if(opened)return;
+    opened=true;
+    intro.classList.add('opening');
+    document.body.style.overflow='';
+    setTimeout(()=>{
+      intro.classList.add('gone');
+      startAutoScroll();
+    },1150);
+  }
+  openBtn.addEventListener('click',openInvite);
+
+  let autoScrolling=false,scrollRaf=null,scrollDir=1,scrollLast=0,scrollPausedUntil=0,scrollIdleTimer=null;
+  function pauseAutoScroll(ms=7000){
+    if(!autoScrolling)return;
+    scrollPausedUntil=performance.now()+ms;
+    clearTimeout(scrollIdleTimer);
+    scrollIdleTimer=setTimeout(()=>{scrollPausedUntil=0},ms);
+  }
+  function scrollStep(now){
+    if(!autoScrolling)return;
+    if(now<scrollPausedUntil){scrollLast=now;scrollRaf=requestAnimationFrame(scrollStep);return}
+    const dt=Math.min(250,now-(scrollLast||now));scrollLast=now;
+    const max=Math.max(0,document.documentElement.scrollHeight-window.innerHeight);
+    let y=window.scrollY+scrollDir*0.09*dt;
+    if(y>=max){y=max;scrollDir=-1;scrollPausedUntil=now+3500}
+    if(y<=0){y=0;scrollDir=1;scrollPausedUntil=now+3500}
+    window.scrollTo(0,y);
+    scrollRaf=requestAnimationFrame(scrollStep);
+  }
+  function startAutoScroll(){
+    if(autoScrolling)return;
+    autoScrolling=true;scrollLast=0;scrollDir=1;
+    scrollRaf=requestAnimationFrame(scrollStep);
+    ['wheel','touchstart','pointerdown','keydown'].forEach(e=>
+      window.addEventListener(e,()=>pauseAutoScroll(),{passive:true}));
+  }
+</script>
+</body>
+</html>
